@@ -1,0 +1,37 @@
+{
+    "data": [
+        {
+            "eventStartTimestamp": 1672106400,
+            "eventEndTimestamp": 1672110000,
+            "eventSummary": "some event"
+        },
+        {
+            "eventStartTimestamp": 1672106400,
+            "eventEndTimestamp": 1672110000,
+            "eventSummary": "some event"
+        },
+
+        {
+            "eventStartTimestamp": 1672106400,
+            "eventEndTimestamp": 1672110000,
+            "eventSummary": "some event"
+        },
+
+        {
+            "eventStartTimestamp": 1672106400,
+            "eventEndTimestamp": 1672110000,
+            "eventSummary": "some event"
+        },
+
+        {
+            "eventStartTimestamp": 1672106400,
+            "eventEndTimestamp": 1672110000,
+            "eventSummary": "some event"
+        },
+        {
+            "eventStartTimestamp": 1672144200,
+            "eventEndTimestamp": 1672147800,
+            "eventSummary": "Some event"
+        }
+    ]
+}
