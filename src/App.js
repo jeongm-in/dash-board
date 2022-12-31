@@ -1,6 +1,6 @@
 import './App.css';
 import * as dotenv from 'dotenv';
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import GridLayout from './components/GridLayout';
 import mockcalendar from '../src/sample/calendar.json'
 import mockweather from '../src/sample/weather.json'
@@ -11,8 +11,6 @@ dotenv.config()
 function App() {
   const [weatherData, setWeatherData] = useState([]);
   const [calendarData, setCalendarData] = useState([]);
-  const ws = useRef(null);
-
 
   const fetchData = async () => {
     await fetch(`${process.env.REACT_APP_API_URL}/forecast?lat=${process.env.REACT_APP_LAT}&lon=${process.env.REACT_APP_LONG}&units=${process.env.REACT_APP_UNIT}&appid=${process.env.REACT_APP_API_KEY}`)
@@ -23,36 +21,19 @@ function App() {
   }
 
   const fetchCalendarData = async () => {
-    await fetch(`http://localhost:8000/getEvents`)
+    await fetch(`http://localhost:8001/getEvents`)
       .then(res => res.json())
       .then(result => {
         setCalendarData(result.data)
       });
   }
-
-
-  // const subscribeWeather = 
-
   
   useEffect(() => {
-    ws.current = new WebSocket(process.env.REACT_APP_SOCKET_URI + process.env.REACT_APP_SOCKET_PORT);
-  //     try {
-  //   sock.onmessage = ({data}) => {
-  //     this.message = data; 
-  //     console.log(thismessage);
-  //   }
-  // } catch (err) {
-  //   console.error(err)
-  // }
-
     
-    ws.current.onopen = () => console.log("ws opened");
-    ws.current.onclose = () => console.log("ws closed"); 
-
-    // fetchData();
-    // fetchCalendarData();
-    setCalendarData(mockcalendar.data);
-    setWeatherData(mockweather);
+    fetchData();
+    fetchCalendarData();
+    // setCalendarData(mockcalendar.data);
+    // setWeatherData(mockweather);
   }, [])
 
 
