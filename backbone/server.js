@@ -1,7 +1,7 @@
 // Create express app
 const express = require("express")
 const app = express()
-import * as dotenv from 'dotenv';
+const dotenv = require('dotenv');
 const WebSocket = require('ws');
 const redis = require('redis');
 const path = require("path");
