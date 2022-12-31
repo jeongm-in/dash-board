@@ -21,7 +21,10 @@ console.log(redisClient);
 const sock = new WebSocket.Server({port: process.env.REACT_APP_SOCKET_PORT});
 
 sock.on('connection', (websocket) => {
-
+    console.log('websocket created');
+    redisClient.publish("weather", "SMORES", ()=>{
+        process.exit();
+    })
     // forward the message from redis on websocket
     redisClient.on('message', (_, message) => {
         console.log(message);
