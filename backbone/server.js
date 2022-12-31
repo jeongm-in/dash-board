@@ -11,9 +11,12 @@ const path = require("path");
 dotenv.config()
 
 // set up redis client and subscribe 
+console.log("message from server");
 const redisClient = redis.createClient(process.env.REACT_APP_REDIS);
 redisClient.subscribe('weather');
 redisClient.subscribe('calendar');
+
+console.log(redisClient);
 
 const sock = new WebSocket.Server({port: process.env.REACT_APP_SOCKET_PORT});
 
