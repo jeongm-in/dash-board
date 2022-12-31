@@ -15,7 +15,7 @@ const redisClient = redis.createClient(process.env.REACT_APP_REDIS);
 redisClient.subscribe('app:weather');
 redisClient.subscribe('app:calendar');
 
-const sock = new WebSocket.Server({port: process.env.REACT_APP_SERVER_PORT});
+const sock = new WebSocket.Server({port: process.env.REACT_APP_SOCKET_PORT});
 
 sock.on('connection', (websocket) => {
 
