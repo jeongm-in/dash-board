@@ -30,7 +30,13 @@ function App() {
       });
   }
 
-  // try {
+
+  // const subscribeWeather = 
+
+  
+  useEffect(() => {
+    ws.current = new WebSocket(process.env.REACT_APP_SOCKET_URI + process.env.REACT_APP_SOCKET_PORT);
+  //     try {
   //   sock.onmessage = ({data}) => {
   //     this.message = data; 
   //     console.log(thismessage);
@@ -39,11 +45,7 @@ function App() {
   //   console.error(err)
   // }
 
-  // const subscribeWeather = 
-
-  
-  useEffect(() => {
-    ws.current = new WebSocket(process.env.REACT_APP_SOCKET_URI + process.env.REACT_APP_SOCKET_PORT);
+    
     ws.current.onopen = () => console.log("ws opened");
     ws.current.onclose = () => console.log("ws closed"); 
 
