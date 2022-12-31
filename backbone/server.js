@@ -1,22 +1,33 @@
 // Create express app
-const cors = require('cors');
 const express = require("express")
 const app = express()
 import * as dotenv from 'dotenv';
+const WebSocket = require('ws');
+const redis = require('redis');
+const path = require("path");
+
 
 // set up dotenv 
 dotenv.config()
 
+// set up redis client and subscribe 
+const redisClient = redis.createClient(process.env.REACT_APP_REDIS);
+redisClient.subscribe('app:weather');
+redisClient.subscribe('app:calendar');
 
-// TODO: is CORS necessary? #3 
-app.use(cors({origin:true,credentials: true}));
+const sock = new WebSocket.Server({port: process.env.REACT_APP_SERVER_PORT});
 
-// TODO: Extract into env #2
-const db = require("./database.js")
-const path = require("path");
+sock.on('connection', (websocket) => {
+
+    // forward the message from redis on websocket
+    redisClient.on('message', (_, message) => {
+        console.log(message);
+        websocket.send(message);
+    })
+})
+
 // Server port
-var HTTP_PORT = 8000
-
+var HTTP_PORT = process.env.REACT_APP_SERVER_PORT;
 
 // Start server
 app.listen(HTTP_PORT, () => {
@@ -26,15 +37,7 @@ app.listen(HTTP_PORT, () => {
 // TODO: Extract into env #2
 app.get("/getEvents", (req, res, next) => {
 
-    db.all("SELECT * FROM todays_events ORDER BY eventStartTimestamp", [], (err, rows) => {
-        if (err) {
-            res.status(400).json({ "error": err.message });
-            return;
-        }
-        res.json({
-            "data": rows
-        });
-    });
+    
 });
 
 const buildPath = process.env.REACT_APP_BUILD_PATH;
@@ -42,7 +45,7 @@ app.use(express.static(buildPath));
 
 
 const rootRouter = express.Router();
-rootRouter.get('(/*)?', async (req, res, next) => {
+rootRouter.get('(/*)?', async (_, res, _) => {
     res.sendFile(path.join(buildPath, 'index.html'));
 });
 
