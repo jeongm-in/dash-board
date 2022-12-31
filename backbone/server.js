@@ -12,8 +12,8 @@ dotenv.config()
 
 // set up redis client and subscribe 
 const redisClient = redis.createClient(process.env.REACT_APP_REDIS);
-redisClient.subscribe('app:weather');
-redisClient.subscribe('app:calendar');
+redisClient.subscribe('weather');
+redisClient.subscribe('calendar');
 
 const sock = new WebSocket.Server({port: process.env.REACT_APP_SOCKET_PORT});
 
