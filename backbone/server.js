@@ -1,14 +1,14 @@
 // Create express app
 const express = require("express")
-const app = express()
 const dotenv = require('dotenv');
-// const WebSocket = require('ws');
 const redis = require('redis');
 const path = require("path");
 
+// init express
+const app = express()
+
 // init redis with default settings
 const redisClient = redis.createClient();
-
 
 // set up dotenv 
 dotenv.config()
@@ -23,9 +23,10 @@ app.listen(process.env.REACT_APP_SERVER_PORT, () => {
 app.get("/getEvents", (req, res, next) => {
     (async () => {
         await redisClient.connect();
-        const data = await redisClient.json.get('calendar', { path: "." });
+        const rawData = await redisClient.get('calendar');
+        
         res.json({
-            "data": data
+            "data": JSON.parse(rawData)
         });
     })().then(async () => {
         await redisClient.quit();

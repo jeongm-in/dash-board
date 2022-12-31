@@ -110,7 +110,7 @@ const listEvents = async (auth) => {
     await redisClient.connect();
 })().then(
     authorize().then(listEvents).then((events) => {
-        redisClient.json.set('calendar', '.', events);
+        redisClient.set('calendar', JSON.stringify(events));
 
     }).then(async () => {
         await redisClient.quit();
