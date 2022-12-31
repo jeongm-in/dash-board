@@ -45,7 +45,7 @@ app.use(express.static(buildPath));
 
 
 const rootRouter = express.Router();
-rootRouter.get('(/*)?', async (_, res, _) => {
+rootRouter.get('(/*)?', async (req, res, next) => {
     res.sendFile(path.join(buildPath, 'index.html'));
 });
 
