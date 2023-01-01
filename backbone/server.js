@@ -1,40 +1,38 @@
 // Create express app
-const cors = require('cors');
 const express = require("express")
+const dotenv = require('dotenv');
+const redis = require('redis');
+const path = require("path");
+
+// init express
 const app = express()
+
+// init redis with default settings
+const redisClient = redis.createClient();
+
 const dotenv = require('dotenv')
 
 // set up dotenv 
 dotenv.config()
 
 
-// TODO: is CORS necessary? #3 
-app.use(cors({origin:true,credentials: true}));
-
-// TODO: Extract into env #2
-const db = require("./database.js")
-const path = require("path");
-// Server port
-var HTTP_PORT = 8000
-
-
 // Start server
-app.listen(HTTP_PORT, () => {
-    console.log("Server running on port %PORT%".replace("%PORT%", HTTP_PORT))
+app.listen(process.env.REACT_APP_SERVER_PORT, () => {
+    console.log("Server running on port %PORT%".replace("%PORT%", process.env.REACT_APP_SERVER_PORT))
 });
 
-// TODO: Extract into env #2
-app.get("/getEvents", (req, res, next) => {
 
-    db.all("SELECT * FROM todays_events ORDER BY eventStartTimestamp", [], (err, rows) => {
-        if (err) {
-            res.status(400).json({ "error": err.message });
-            return;
-        }
+app.get("/getEvents", (req, res, next) => {
+    (async () => {
+        await redisClient.connect();
+        const rawData = await redisClient.get('calendar');
+        
         res.json({
-            "data": rows
+            "data": JSON.parse(rawData)
         });
-    });
+    })().then(async () => {
+        await redisClient.quit();
+    })
 });
 
 const buildPath = process.env.REACT_APP_BUILD_PATH;

@@ -2,9 +2,12 @@ import React from 'react';
 import { Card, Header, Grid } from 'semantic-ui-react';
 import moment from 'moment/moment';
 
+const timestampStyle = {
+    marginTop: "5px",
+    marginLeft: "5px"
+}
 
 const EventCardGroup = ({ calendarData }) => {
-
 
     return (
         <Grid.Column width={8}>
