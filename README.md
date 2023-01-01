@@ -1,7 +1,8 @@
 # dash-board
 Personal dashboard running on Raspberry Pi and displaying on Waveshare 7.5" E-ink display 
 
-![img](docs/display.png)
+![img](docs/display.jpg)
+![img-back](docs/back.jpg)
 
 # Pieces used in this project
 - Raspberry Pi
