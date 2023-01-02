@@ -10,8 +10,6 @@ const app = express()
 // init redis with default settings
 const redisClient = redis.createClient();
 
-const dotenv = require('dotenv')
-
 // set up dotenv 
 dotenv.config()
 
