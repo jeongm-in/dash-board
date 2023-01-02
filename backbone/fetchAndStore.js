@@ -91,7 +91,7 @@ const listEvents = async (auth) => {
     const events = res.data.items;
     if (!events || events.length === 0) {
         console.log('No upcoming events found.');
-        return;
+        return [];
     }
 
     return events.map((event) => {
