@@ -11,6 +11,7 @@ Personal dashboard running on Raspberry Pi and displaying on Waveshare 7.5" E-in
 - Google OAuth credentials with Google calendar enabled
 
 # How to 
+## Using node standalone
 1. Install dependent packages - `npm install`
 2. Install redis
 3. Copy `.env` from `.env.default` and populate it with your configurations
@@ -21,7 +22,13 @@ Personal dashboard running on Raspberry Pi and displaying on Waveshare 7.5" E-in
 8. Run express server by running `npm run host` (in the background if you want to keep it running)
 9. Visit `localhost:<YOUR_PORT_FROM_ENV>` and check the dashboard in action
 10. Install [ejs](https://github.com/samsonmking/epaper.js?ref=codebldr)
-11. Run `ejs refresh -i 300 rpi-7in5-v2 "http://localhost:8000"`
+11. Run `ejs refresh -i 300 rpi-7in5-v2 "http://localhost:8000"` (recommend using screen to run ejs in the background)
+
+## Using Docker 
+1. Run `docker compose up`
+2. Set up cronjob to periodically run `npm run fetch` as mentioned earlier
+3. Run `ejs refresh -i 300 rpi-7in5-v2 "http://localhost:8000` (recommend using screen to run ejs in the background)
+
 
 # Architecture
 ![arch](docs/architecture.png)
