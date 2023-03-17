@@ -25,7 +25,7 @@ Personal dashboard running on Raspberry Pi and displaying on Waveshare 7.5" E-in
 11. Run `ejs refresh -i 300 rpi-7in5-v2 "http://localhost:8000"` (recommend using screen to run ejs in the background)
 
 ## Using Docker 
-1. Run `docker compose up`
+1. Run `docker compose up -d`
 2. Set up cronjob to periodically run `npm run fetch` as mentioned earlier
 3. Run `ejs refresh -i 300 rpi-7in5-v2 "http://localhost:8000` (recommend using screen to run ejs in the background)
 
