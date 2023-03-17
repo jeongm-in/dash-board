@@ -1,0 +1,14 @@
+version: "3.9"
+services:
+    redis:
+        image: "redis"
+        restart: "unless-stopped"
+        ports:
+            - "6379:6379"
+    dashboard:
+        build: .
+        restart: "unless-stopped"
+        ports: 
+            - "8000:8000"
+        depends_on:
+            - "redis"

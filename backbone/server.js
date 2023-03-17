@@ -7,11 +7,11 @@ const path = require("path");
 // init express
 const app = express()
 
-// init redis with default settings
-const redisClient = redis.createClient();
-
-// set up dotenv 
+// set up dotenv
 dotenv.config()
+
+// init redis with default settings
+const redisClient = redis.createClient({url: `${process.env.REACT_APP_REDIS}`});
 
 
 // Start server
