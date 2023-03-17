@@ -11,7 +11,8 @@ const app = express()
 dotenv.config()
 
 // init redis with default settings
-const redisClient = redis.createClient({url: `${process.env.REACT_APP_REDIS}`});
+console.log(process.env.REDIS_URL)
+const redisClient = redis.createClient({url: `${process.env.REDIS_URL}`});
 
 
 // Start server
