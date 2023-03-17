@@ -21,7 +21,7 @@ function App() {
   }
 
   const fetchCalendarData = async () => {
-    await fetch(`http://localhost:8001/getEvents`)
+    await fetch(`http://localhost:8000/getEvents`)
       .then(res => res.json())
       .then(result => {
         setCalendarData(result.data)
