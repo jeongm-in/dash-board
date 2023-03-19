@@ -3,15 +3,16 @@ const express = require("express")
 const dotenv = require('dotenv');
 const redis = require('redis');
 const path = require("path");
+const { raw } = require("express");
 
 // init express
 const app = express()
 
-// set up dotenv
+// set up dotenv 
 dotenv.config()
 
+
 // init redis with default settings
-console.log(process.env.REDIS_URL)
 const redisClient = redis.createClient({url: `${process.env.REDIS_URL}`});
 
 
@@ -25,10 +26,17 @@ app.get("/getEvents", (req, res, next) => {
     (async () => {
         await redisClient.connect();
         const rawData = await redisClient.get('calendar');
-        
-        res.json({
-            "data": JSON.parse(rawData)
-        });
+        const eventsJson = JSON.parse(rawData);
+
+        try {
+            const eventsJson = JSON.parse(rawData);
+            res.json({
+                "data": eventsJson
+            });
+        } catch (error) {
+            console.error("No data retrieved from Redis; run fetchAndStore.js first.  " + error);
+        }
+
     })().then(async () => {
         await redisClient.quit();
     })
